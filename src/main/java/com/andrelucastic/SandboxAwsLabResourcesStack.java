@@ -19,22 +19,22 @@ public class SandboxAwsLabResourcesStack extends Stack implements AwsResource {
 
         var vpcName = getResourceName(SANDBOX, VPC_NAME);
 
-        new VpcStack(this, "vpc-stack", props, SANDBOX, vpcName)
+        new VpcStack(this, "1-vpc-stack", props, SANDBOX, vpcName)
                 .create();
 
-        new LoadBalancerStack(this, "loadbalancer-stack", props, SANDBOX, vpcName)
+        new LoadBalancerStack(this, "2-loadbalancer-stack", props, SANDBOX, vpcName)
                 .create();
 
-        new ClusterStack(this, "cluster-stack", props, SANDBOX, vpcName)
+        new ClusterStack(this, "3-cluster-stack", props, SANDBOX, vpcName)
                 .create();
 
-        new SecurityEcsStack(this, "security-ecs-stack", props, SANDBOX, vpcName)
+        new SecurityEcsStack(this, "4-security-ecs-stack", props, SANDBOX, vpcName)
                 .create();
 
-        new EcsTaskExecutionRole(this, "ecs-task-execution-role", props, SANDBOX)
+        new EcsTaskExecutionRole(this, "5-ecs-task-execution-role", props, SANDBOX)
                 .create();
 
-        new EcsTaskRole(this, "ecs-task-role", props, SANDBOX)
+        new EcsTaskRole(this, "6-ecs-task-role", props, SANDBOX)
                 .create();
     }
 }
