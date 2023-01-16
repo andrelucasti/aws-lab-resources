@@ -28,7 +28,7 @@ public class ClusterStack extends Stack implements AwsResource {
     }
 
     public void create(){
-        IVpc vpc = Vpc.fromLookup(this, "aws-resources-vpc-stack", VpcLookupOptions.builder().vpcName(vpcName).isDefault(false).build());
+        IVpc vpc = Vpc.fromLookup(this, "vpc", VpcLookupOptions.builder().vpcName(vpcName).isDefault(false).build());
 
         Cluster.Builder.create(this, "cluster")
                 .vpc(vpc)

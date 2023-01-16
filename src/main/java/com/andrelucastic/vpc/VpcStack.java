@@ -1,7 +1,7 @@
 package com.andrelucastic.vpc;
 
+import com.andrelucastic.AwsResource;
 import com.andrelucastic.Environment;
-import org.jetbrains.annotations.Nullable;
 import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.services.ec2.SubnetConfiguration;
@@ -11,11 +11,11 @@ import software.constructs.Construct;
 
 import java.util.List;
 
-public class VPCStack extends Stack {
+public class VpcStack extends Stack implements AwsResource {
     private final Environment environment;
     private final String vpcName;
 
-    public VPCStack(final Construct scope,
+    public VpcStack(final Construct scope,
                     final String id,
                     final StackProps props,
                     final Environment environment,
@@ -29,12 +29,12 @@ public class VPCStack extends Stack {
     public void create(){
         SubnetConfiguration publicSubnet = SubnetConfiguration.builder()
                 .subnetType(SubnetType.PUBLIC)
-                .name(environment.value().concat("-").concat("publicSubnet"))
+                .name(getResourceName(environment, "publicSubnet"))
                 .build();
 
         SubnetConfiguration isolateSubnet = SubnetConfiguration.builder()
                 .subnetType(SubnetType.PRIVATE_ISOLATED)
-                .name(environment.value().concat("-").concat("isolateSubnet"))
+                .name(getResourceName(environment, "isolateSubnet"))
                 .build();
 
         Vpc.Builder.create(this, "vpc")
