@@ -2,12 +2,15 @@ package com.andrelucastic.clusters.ecs;
 
 import com.andrelucastic.AwsResource;
 import com.andrelucastic.Environment;
+import software.amazon.awscdk.RemovalPolicy;
 import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.services.ec2.IVpc;
 import software.amazon.awscdk.services.ec2.Vpc;
 import software.amazon.awscdk.services.ec2.VpcLookupOptions;
 import software.amazon.awscdk.services.ecs.Cluster;
+import software.amazon.awscdk.services.logs.LogGroup;
+import software.amazon.awscdk.services.logs.RetentionDays;
 import software.constructs.Construct;
 
 public class ClusterStack extends Stack implements AwsResource {
@@ -33,6 +36,12 @@ public class ClusterStack extends Stack implements AwsResource {
         Cluster.Builder.create(this, "cluster")
                 .vpc(vpc)
                 .clusterName(getResourceName(environment, CLUSTER_NAME))
+                .build();
+
+        LogGroup.Builder.create(this, "ecsLogGroup")
+                .logGroupName(getResourceName(environment, CLUSTER_NAME).concat("-").concat("logs"))
+                .retention(RetentionDays.ONE_WEEK)
+                .removalPolicy(RemovalPolicy.DESTROY)
                 .build();
     }
 

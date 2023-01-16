@@ -28,7 +28,7 @@ public class EcsTaskExecutionRole extends Stack implements AwsResource {
 
     public Role create(){
         return Role.Builder.create(this, "ecsTaskExecutionRole")
-                .roleName(getResourceName(environment, "aws-resouce-ecsTaskExecutionRole"))
+                .roleName(getResourceName(environment, "aws-resource-ecsTaskExecutionRole"))
                 .assumedBy(ServicePrincipal.Builder.create("ecs-tasks.amazonaws.com").build())
                 .path("/")
                 .inlinePolicies(Map.of(
