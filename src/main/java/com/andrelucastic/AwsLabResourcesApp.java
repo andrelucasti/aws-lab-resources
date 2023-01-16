@@ -1,10 +1,7 @@
-package com.myorg;
+package com.andrelucastic;
 
 import software.amazon.awscdk.App;
-import software.amazon.awscdk.Environment;
 import software.amazon.awscdk.StackProps;
-
-import java.util.Arrays;
 
 public class AwsLabResourcesApp {
     public static void main(final String[] args) {
