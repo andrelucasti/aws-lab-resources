@@ -1,0 +1,42 @@
+name: Create the infrastructure in the AWS
+on:
+  workflow_dispatch:
+
+env:
+  AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+  AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+  AWS_DEFAULT_REGION: ${{secrets.AWS_REGION}}
+  AWS_ACCOUNT_ID: ${{secrets.AWS_ACCOUNT_ID}}
+
+jobs:
+  infrastructure:
+    runs-on: ubuntu-20.04
+    name: Infrastructure - Bootstrap & Deploy CDK
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 11
+          cache: 'maven'
+
+      - name: Install aws cdk
+        run: npm install -g aws-cdk
+
+      - name: CDK bootstrap
+        working-directory: infrastructure
+        run: cdk bootstrap -c accountId=${{ env.AWS_ACCOUNT_ID }} -c region=${{ env.AWS_DEFAULT_REGION }}
+
+      - name: CDK deploy
+        working-directory: infrastructure
+        run: |
+          cdk deploy -c accountId=${{ env.AWS_ACCOUNT_ID }} -c region=${{ env.AWS_DEFAULT_REGION }} sandboxAwsLabResources-stack/1-vpc-stack --require-approval never 
+          cdk deploy -c accountId=${{ env.AWS_ACCOUNT_ID }} -c region=${{ env.AWS_DEFAULT_REGION }} sandboxAwsLabResources-stack/3-cluster-stack --require-approval never
+          cdk deploy -c accountId=${{ env.AWS_ACCOUNT_ID }} -c region=${{ env.AWS_DEFAULT_REGION }} sandboxAwsLabResources-stack/2-loadbalancer-stack --require-approval never
+          cdk deploy -c accountId=${{ env.AWS_ACCOUNT_ID }} -c region=${{ env.AWS_DEFAULT_REGION }} sandboxAwsLabResources-stack/4-security-ecs-stack --require-approval never
+          cdk deploy -c accountId=${{ env.AWS_ACCOUNT_ID }} -c region=${{ env.AWS_DEFAULT_REGION }} sandboxAwsLabResources-stack/5-ecs-task-execution-role --require-approval never
+          cdk deploy -c accountId=${{ env.AWS_ACCOUNT_ID }} -c region=${{ env.AWS_DEFAULT_REGION }} sandboxAwsLabResources-stack/6-ecs-task-role --require-approval never
+          
