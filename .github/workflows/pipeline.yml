@@ -1,4 +1,4 @@
-name: Create the infrastructure in the AWS
+name: Create/Update the infrastructure in the AWS
 on:
   workflow_dispatch:
 
