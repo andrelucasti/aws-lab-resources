@@ -43,7 +43,8 @@ public class EcsTaskExecutionRole extends Stack implements AwsResource {
                                                 "ecr:GetDownloadUrlForLayer",
                                                 "ecr:BatchGetImage",
                                                 "logs:CreateLogStream",
-                                                "logs:PutLogEvents"))
+                                                "logs:PutLogEvents",
+                                                "secretsmanager:GetSecretValue"))
                                         .build()))
                                 .build()))
                 .build();
