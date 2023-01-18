@@ -38,7 +38,8 @@ public class EcsTaskRole extends Stack implements AwsResource {
                                         .resources(Collections.singletonList("*"))
                                         .actions(List.of(
                                                 "secretsmanager:GetSecretValue",
-                                                "secretsmanager:DescribeSecret"))
+                                                "secretsmanager:DescribeSecret",
+                                                "rds:Describe*"))
                                         .build()))
                                 .build()))
                 .path("/")
