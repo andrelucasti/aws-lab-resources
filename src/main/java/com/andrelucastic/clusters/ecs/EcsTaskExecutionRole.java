@@ -44,7 +44,9 @@ public class EcsTaskExecutionRole extends Stack implements AwsResource {
                                                 "ecr:BatchGetImage",
                                                 "logs:CreateLogStream",
                                                 "logs:PutLogEvents",
-                                                "secretsmanager:GetSecretValue"))
+                                                "secretsmanager:GetSecretValue",
+                                                "rds-data:*",
+                                                "rds-db:*"))
                                         .build()))
                                 .build()))
                 .build();
