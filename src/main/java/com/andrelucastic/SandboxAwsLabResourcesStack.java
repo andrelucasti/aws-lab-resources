@@ -4,7 +4,6 @@ import com.andrelucastic.clusters.ecs.ClusterStack;
 import com.andrelucastic.clusters.ecs.EcsTaskExecutionRole;
 import com.andrelucastic.clusters.ecs.EcsTaskRole;
 import com.andrelucastic.clusters.ecs.SecurityEcsStack;
-import com.andrelucastic.loadbalancer.LoadBalancerStack;
 import com.andrelucastic.vpc.VpcStack;
 import software.constructs.Construct;
 import software.amazon.awscdk.Stack;
@@ -20,9 +19,6 @@ public class SandboxAwsLabResourcesStack extends Stack implements AwsResource {
         var vpcName = getResourceName(SANDBOX, VPC_NAME);
 
         new VpcStack(this, "1-vpc-stack", props, SANDBOX, vpcName)
-                .create();
-
-        new LoadBalancerStack(this, "2-loadbalancer-stack", props, SANDBOX, vpcName)
                 .create();
 
         new ClusterStack(this, "3-cluster-stack", props, SANDBOX, vpcName)

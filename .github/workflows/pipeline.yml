@@ -33,7 +33,6 @@ jobs:
         run: |
           cdk deploy -c accountId=${{ env.AWS_ACCOUNT_ID }} -c region=${{ env.AWS_DEFAULT_REGION }} sandboxAwsLabResources-stack/1-vpc-stack --require-approval never 
           cdk deploy -c accountId=${{ env.AWS_ACCOUNT_ID }} -c region=${{ env.AWS_DEFAULT_REGION }} sandboxAwsLabResources-stack/3-cluster-stack --require-approval never
-          cdk deploy -c accountId=${{ env.AWS_ACCOUNT_ID }} -c region=${{ env.AWS_DEFAULT_REGION }} sandboxAwsLabResources-stack/2-loadbalancer-stack --require-approval never
           cdk deploy -c accountId=${{ env.AWS_ACCOUNT_ID }} -c region=${{ env.AWS_DEFAULT_REGION }} sandboxAwsLabResources-stack/4-security-ecs-stack --require-approval never
           cdk deploy -c accountId=${{ env.AWS_ACCOUNT_ID }} -c region=${{ env.AWS_DEFAULT_REGION }} sandboxAwsLabResources-stack/5-ecs-task-execution-role --require-approval never
           cdk deploy -c accountId=${{ env.AWS_ACCOUNT_ID }} -c region=${{ env.AWS_DEFAULT_REGION }} sandboxAwsLabResources-stack/6-ecs-task-role --require-approval never
