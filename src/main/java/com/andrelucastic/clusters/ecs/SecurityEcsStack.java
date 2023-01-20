@@ -2,11 +2,11 @@ package com.andrelucastic.clusters.ecs;
 
 import com.andrelucastic.AwsResource;
 import com.andrelucastic.Environment;
+import com.andrelucastic.vpc.VpcStack;
 import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.services.ec2.CfnSecurityGroup;
 import software.amazon.awscdk.services.ec2.CfnSecurityGroupIngress;
-import software.amazon.awscdk.services.ec2.ISecurityGroup;
 import software.amazon.awscdk.services.ec2.IVpc;
 import software.amazon.awscdk.services.ec2.SecurityGroup;
 import software.amazon.awscdk.services.ec2.Vpc;
@@ -30,7 +30,8 @@ public class SecurityEcsStack extends Stack implements AwsResource {
     }
 
     public void create(){
-        IVpc vpc = Vpc.fromLookup(this, "aws-resources-vpc-stack", VpcLookupOptions.builder().vpcName(vpcName).isDefault(false).build());
+        IVpc vpc = Vpc.fromLookup(this, VpcStack.VPC_ID, VpcLookupOptions.builder().vpcName(vpcName).isDefault(false).build());
+        System.out.println("vpc: ".concat(vpc.getVpcId()));
 
         SecurityGroup loadbalancerSecGroup = SecurityGroup.Builder.create(this, "loadbalancerSecGroup")
                 .securityGroupName(getResourceName(environment, "loadbalancerSecGroup"))
@@ -45,7 +46,7 @@ public class SecurityEcsStack extends Stack implements AwsResource {
                 .build();
 
         CfnSecurityGroup ecsSecurityGroup = CfnSecurityGroup.Builder.create(this, "ecsSecurityGroup")
-                .groupName("ecsSecurityGroup")
+                .groupName(getResourceName(environment, "ecsSecurityGroup"))
                 .vpcId(vpc.getVpcId())
                 .groupDescription("SecurityGroup for the ECS containers")
                 .build();

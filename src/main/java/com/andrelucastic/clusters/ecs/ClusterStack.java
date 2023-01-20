@@ -2,6 +2,7 @@ package com.andrelucastic.clusters.ecs;
 
 import com.andrelucastic.AwsResource;
 import com.andrelucastic.Environment;
+import com.andrelucastic.vpc.VpcStack;
 import software.amazon.awscdk.RemovalPolicy;
 import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.StackProps;
@@ -31,7 +32,7 @@ public class ClusterStack extends Stack implements AwsResource {
     }
 
     public void create(){
-        IVpc vpc = Vpc.fromLookup(this, "vpc", VpcLookupOptions.builder().vpcName(vpcName).isDefault(false).build());
+        IVpc vpc = Vpc.fromLookup(this, VpcStack.VPC_ID, VpcLookupOptions.builder().vpcName(vpcName).isDefault(false).build());
 
         Cluster.Builder.create(this, "cluster")
                 .vpc(vpc)

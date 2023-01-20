@@ -12,6 +12,7 @@ import software.constructs.Construct;
 import java.util.List;
 
 public class VpcStack extends Stack implements AwsResource {
+    public static final String VPC_ID = "vpc";
     private final Environment environment;
     private final String vpcName;
 
@@ -37,7 +38,7 @@ public class VpcStack extends Stack implements AwsResource {
                 .name(getResourceName(environment, "isolateSubnet"))
                 .build();
 
-        Vpc.Builder.create(this, "vpc")
+        Vpc.Builder.create(this, VPC_ID)
                 .vpcName(vpcName)
                 .natGateways(0)
                 .maxAzs(2)
