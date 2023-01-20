@@ -32,6 +32,18 @@ public class SecurityEcsStack extends Stack implements AwsResource {
     public void create(){
         IVpc vpc = Vpc.fromLookup(this, "aws-resources-vpc-stack", VpcLookupOptions.builder().vpcName(vpcName).isDefault(false).build());
 
+        SecurityGroup loadbalancerSecGroup = SecurityGroup.Builder.create(this, "loadbalancerSecGroup")
+                .securityGroupName(getResourceName(environment, "loadbalancerSecGroup"))
+                .description("Public access to the load balancer")
+                .vpc(vpc)
+                .build();
+
+        CfnSecurityGroupIngress.Builder.create(this, "ingressToLoadBalancer")
+                .groupId(loadbalancerSecGroup.getSecurityGroupId())
+                .cidrIp("0.0.0.0/0")
+                .ipProtocol("-1")
+                .build();
+
         CfnSecurityGroup ecsSecurityGroup = CfnSecurityGroup.Builder.create(this, "ecsSecurityGroup")
                 .groupName("ecsSecurityGroup")
                 .vpcId(vpc.getVpcId())
@@ -44,8 +56,6 @@ public class SecurityEcsStack extends Stack implements AwsResource {
                 .ipProtocol("-1")
                 .build();
 
-
-        ISecurityGroup loadbalancerSecGroup = SecurityGroup.fromLookupByName(this, "loadbalancerSecGroup", (getResourceName(environment, "loadbalancerSecGroup")), vpc);
         CfnSecurityGroupIngress.Builder.create(this, "ecsIngressFromLoadbalancer")
                 .ipProtocol("-1")
                 .sourceSecurityGroupId(loadbalancerSecGroup.getSecurityGroupId())
