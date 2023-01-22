@@ -37,10 +37,12 @@ public class EcsTaskRole extends Stack implements AwsResource {
                                         .effect(Effect.ALLOW)
                                         .resources(Collections.singletonList("*"))
                                         .actions(List.of(
+                                                "sqs:*",
                                                 "secretsmanager:GetSecretValue",
                                                 "secretsmanager:DescribeSecret",
                                                 "rds-data:*",
                                                 "rds-db:*"))
+                                                .resources(List.of("arn:aws:sqs:us-east-1:*:*"))
                                         .build()))
                                 .build()))
                 .path("/")
