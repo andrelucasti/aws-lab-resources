@@ -45,6 +45,12 @@ public class EcsTaskExecutionRole extends Stack implements AwsResource {
                                                 "logs:CreateLogStream",
                                                 "logs:PutLogEvents",
                                                 "secretsmanager:GetSecretValue",
+                                                "sqs:SendMessage",
+                                                "sqs:ReceiveMessage",
+                                                "sqs:GetQueueUrl",
+                                                "sqs:GetQueueAttributes",
+                                                "sqs:SetQueueAttributes",
+                                                "sqs:DeleteMessage",
                                                 "rds-data:*",
                                                 "rds-db:*"))
                                         .build()))
