@@ -45,6 +45,8 @@ public class EcsTaskExecutionRole extends Stack implements AwsResource {
                                                 "logs:CreateLogStream",
                                                 "logs:PutLogEvents",
                                                 "secretsmanager:GetSecretValue",
+                                                "sns:Publish",
+                                                "sns:Subscribe",
                                                 "sqs:SendMessage",
                                                 "sqs:ReceiveMessage",
                                                 "sqs:GetQueueUrl",
