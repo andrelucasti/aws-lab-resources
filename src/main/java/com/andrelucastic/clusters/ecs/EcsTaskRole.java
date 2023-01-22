@@ -47,7 +47,6 @@ public class EcsTaskRole extends Stack implements AwsResource {
                                                 "secretsmanager:DescribeSecret",
                                                 "rds-data:*",
                                                 "rds-db:*"))
-                                                .resources(List.of("arn:aws:sqs:us-east-1:*:*"))
                                         .build()))
                                 .build()))
                 .path("/")

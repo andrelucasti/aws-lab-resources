@@ -53,7 +53,6 @@ public class EcsTaskExecutionRole extends Stack implements AwsResource {
                                                 "sqs:DeleteMessage",
                                                 "rds-data:*",
                                                 "rds-db:*"))
-                                                .resources(List.of("arn:aws:sqs:us-east-1:*:*"))
                                         .build()))
                                 .build()))
                 .build();
