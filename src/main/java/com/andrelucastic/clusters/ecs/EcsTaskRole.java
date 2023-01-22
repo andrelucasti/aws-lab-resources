@@ -37,7 +37,12 @@ public class EcsTaskRole extends Stack implements AwsResource {
                                         .effect(Effect.ALLOW)
                                         .resources(Collections.singletonList("*"))
                                         .actions(List.of(
-                                                "sqs:*",
+                                                "sqs:SendMessage",
+                                                "sqs:ReceiveMessage",
+                                                "sqs:GetQueueUrl",
+                                                "sqs:GetQueueAttributes",
+                                                "sqs:SetQueueAttributes",
+                                                "sqs:DeleteMessage",
                                                 "secretsmanager:GetSecretValue",
                                                 "secretsmanager:DescribeSecret",
                                                 "rds-data:*",
