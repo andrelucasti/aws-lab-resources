@@ -46,6 +46,7 @@ public class EcsTaskRole extends Stack implements AwsResource {
                                                 "sns:*",
                                                 "secretsmanager:GetSecretValue",
                                                 "secretsmanager:DescribeSecret",
+                                                "cloudwatch:PutMetricData",
                                                 "rds-data:*",
                                                 "rds-db:*"))
                                         .build()))

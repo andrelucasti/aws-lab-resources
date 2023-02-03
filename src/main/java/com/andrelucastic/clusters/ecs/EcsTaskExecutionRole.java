@@ -52,6 +52,7 @@ public class EcsTaskExecutionRole extends Stack implements AwsResource {
                                                 "sqs:GetQueueAttributes",
                                                 "sqs:SetQueueAttributes",
                                                 "sqs:DeleteMessage",
+                                                "cloudwatch:PutMetricData",
                                                 "rds-data:*",
                                                 "rds-db:*"))
                                         .build()))
